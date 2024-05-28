@@ -34,27 +34,7 @@ namespace DAT
             instance = null;
         }
 
-        public override void DataBegin()
-        {
-            Debug.Log($"未実装");
-        }
-
-        public override void Send(int toIndex)
-        {
-            Debug.Log($"未実装");
-        }
-
-        public override void SetByte(byte value)
-        {
-            Debug.Log($"未実装");
-        }
-
-        public override void SetInt(int value)
-        {
-            Debug.Log($"未実装");
-        }
-
-        public override void SetString(string value)
+        public override void Send(int toIndex, string json)
         {
             Debug.Log($"未実装");
         }

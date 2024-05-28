@@ -20,24 +20,9 @@ namespace DAT
         void Unregister(IReceiveFunction receiveFunction);
 
         /// <summary>
-        /// 受信したデータから1バイト取り出して、返す。
-        /// 読み取り場所を、1バイト進めておく。
+        /// 受信したJSON文字列を返す。
         /// </summary>
-        /// <returns>1バイト読み取って返す。読めない場合は0</returns>
-        byte GetByte();
-
-        /// <summary>
-        /// 受信したデータから4バイト取り出して、返す。
-        /// 読み取り場所を、4バイト進めておく。
-        /// </summary>
-        /// <returns>4バイト読み取って返す。読めない場合は0</returns>
-        int GetInt();
-
-        /// <summary>
-        /// 受信したデータから文字列を1つ取り出して、返す。
-        /// 読み取った分、読み取り位置を進めておく。
-        /// </summary>
-        /// <returns></returns>
-        string GetString();
+        /// <returns>JSON文字列</returns>
+        string GetJsonString();
     }
 }

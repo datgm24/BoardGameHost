@@ -46,17 +46,7 @@ namespace DAT
             instance = null;
         }
 
-        public override byte GetByte()
-        {
-            return 0;
-        }
-
-        public override int GetInt()
-        {
-            return 0;
-        }
-
-        public override string GetString()
+        public override string GetJsonString()
         {
             return "";
         }

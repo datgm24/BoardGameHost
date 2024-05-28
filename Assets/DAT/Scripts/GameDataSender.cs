@@ -6,14 +6,6 @@ namespace DAT
     /// </summary>
     public abstract class GameDataSender : IGameDataSender
     {
-        public abstract void DataBegin();
-
-        public abstract void SetByte(byte value);
-
-        public abstract void SetInt(int value);
-
-        public abstract void SetString(string value);
-
-        public abstract void Send(int toIndex);
+        public abstract void Send(int toIndex, string json);
     }
 }

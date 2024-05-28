@@ -11,9 +11,7 @@ namespace DAT
     /// </summary>
     public abstract class GameDataReceiver : IGameDataReceiver
     {
-        public abstract byte GetByte();
-        public abstract int GetInt();
-        public abstract string GetString();
+        public abstract string GetJsonString();
 
         public void Register(IReceiveFunction receiveFunction)
         {
