@@ -6,6 +6,6 @@ namespace DAT
     /// </summary>
     public abstract class GameDataSender : IGameDataSender
     {
-        public abstract void Send(int toIndex, string json);
+        public abstract void Send<T>(int toIndex, T data) where T : GameDataCommand;
     }
 }

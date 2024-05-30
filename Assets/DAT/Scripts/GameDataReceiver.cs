@@ -11,7 +11,27 @@ namespace DAT
     /// </summary>
     public abstract class GameDataReceiver : IGameDataReceiver
     {
-        public abstract string GetJsonString();
+        public string GetJsonString() => jsonString;
+
+        /// <summary>
+        /// 受信したJSONの文字列。
+        /// </summary>
+        protected string jsonString;
+
+        /// <summary>
+        /// 自分を特定するインデックス値。ホストから送られてきたデータを記録。
+        /// 自分宛てのデータかをこれで確認して、違えば受け取らないようにする。
+        /// </summary>
+        public int MyIndex { get; private set; }
+
+        /// <summary>
+        /// MyIndexを設定するためのメソッド。
+        /// </summary>
+        /// <param name="index">設定したいインデックス</param>
+        public void SetIndex(int index)
+        {
+            MyIndex = index;
+        }
 
         public void Register(IReceiveFunction receiveFunction)
         {

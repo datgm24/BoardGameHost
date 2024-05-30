@@ -34,9 +34,10 @@ namespace DAT
             instance = null;
         }
 
-        public override void Send(int toIndex, string json)
+        public override void Send<T>(int toIndex, T data)
         {
-            Debug.Log($"未実装");
+            data.to = (short)toIndex;
+            LocalGameDataReceiver.Instance.SetJson(JsonUtility.ToJson(data));
         }
     }
 }

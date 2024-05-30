@@ -6,21 +6,6 @@ namespace DAT
 {
     public class LocalGameDataReceiver : GameDataReceiver, IGameDataReceiver
     {
-        /// <summary>
-        /// 自分を特定するインデックス値。ホストから送られてきたデータを記録。
-        /// 自分宛てのデータかをこれで確認して、違えば受け取らないようにする。
-        /// </summary>
-        public int MyIndex { get; private set; }
-
-        /// <summary>
-        /// MyIndexを設定するためのメソッド。
-        /// </summary>
-        /// <param name="index">設定したいインデックス</param>
-        public void SetIndex(int index)
-        {
-            MyIndex = index;
-        }
-
         static LocalGameDataReceiver instance;
 
         /// <summary>
@@ -46,9 +31,23 @@ namespace DAT
             instance = null;
         }
 
-        public override string GetJsonString()
+        /// <summary>
+        /// 受け取ったJSON文字列を保存する。
+        /// </summary>
+        /// <param name="json">JSON文字列</param>
+        public void SetJson(string json)
         {
-            return "";
+            var command = JsonUtility.FromJson<GameDataCommand>(json);
+            if (command == null)
+            {
+                return;
+            }
+
+            // 宛先が全員(-1)、あるいは、自分宛てのとき、データを記録
+            if ((command.to == -1) || (command.to == MyIndex))
+            {
+                jsonString = json;
+            }
         }
     }
 }

@@ -33,10 +33,5 @@ namespace DAT
         {
             instance = null;
         }
-
-        public override string GetJsonString()
-        {
-            return "";
-        }
     }
 }
