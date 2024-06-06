@@ -11,36 +11,38 @@ namespace DAT
     /// </summary>
     public abstract class GameDataReceiver : IGameDataReceiver
     {
-        public string GetJsonString() => jsonString;
+        List<ICommandInvoker> commandInvokerList = new List<ICommandInvoker>();
 
         /// <summary>
         /// 受信したJSONの文字列。
         /// </summary>
         protected string jsonString;
 
-        /// <summary>
-        /// 自分を特定するインデックス値。ホストから送られてきたデータを記録。
-        /// 自分宛てのデータかをこれで確認して、違えば受け取らないようにする。
-        /// </summary>
-        public int MyIndex { get; private set; }
-
-        /// <summary>
-        /// MyIndexを設定するためのメソッド。
-        /// </summary>
-        /// <param name="index">設定したいインデックス</param>
-        public void SetIndex(int index)
+        public void Register(ICommandInvoker commandInvoker)
         {
-            MyIndex = index;
+            commandInvokerList.Add(commandInvoker);
         }
 
-        public void Register(IReceiveFunction receiveFunction)
+        public void Unregister(ICommandInvoker commandInvoker)
         {
-            Debug.Log("未実装");
+            commandInvokerList.Remove(commandInvoker);
         }
 
-        public void Unregister(IReceiveFunction receiveFunction)
+        /// <summary>
+        /// jsonStringにデータを設定したら呼び出して、
+        /// 登録されているCommandInvokerに受信データを渡す。
+        /// </summary>
+        protected void InvokeCommand()
         {
-            Debug.Log("未実装");
+            for (int i = 0; i < commandInvokerList.Count; i++)
+            {
+                commandInvokerList[i].Receive(this);
+            }
+        }
+
+        public string GetJsonString()
+        {
+            return jsonString;
         }
     }
 }

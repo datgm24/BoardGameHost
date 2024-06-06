@@ -8,21 +8,20 @@ namespace DAT
     public interface IGameDataReceiver
     {
         /// <summary>
-        /// 受信データを処理する機能を登録する。
+        /// 受信したJson文字列を返す。
         /// </summary>
-        /// <param name="receiveFunction">登録したい機能のインスタンス</param>
-        void Register(IReceiveFunction receiveFunction);
-
-        /// <summary>
-        /// 受信データを処理する機能の登録を解除する。
-        /// </summary>
-        /// <param name="receiveFunction">解除したい機能のインスタンス</param>
-        void Unregister(IReceiveFunction receiveFunction);
-
-        /// <summary>
-        /// 受信したJSON文字列を返す。
-        /// </summary>
-        /// <returns>JSON文字列</returns>
         string GetJsonString();
+
+        /// <summary>
+        /// 受信データの送り先を登録する。
+        /// </summary>
+        /// <param name="commandInvoker">受信データを送る先</param>
+        void Register(ICommandInvoker commandInvoker);
+
+        /// <summary>
+        /// 受信データの送り先を解除する。
+        /// </summary>
+        /// <param name="commandInvoker">解除したいインスタンス</param>
+        void Unregister(ICommandInvoker commandInvoker);
     }
 }

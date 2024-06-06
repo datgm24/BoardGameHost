@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace DAT
 {
+    /// <summary>
+    /// アプリ内でデータの受信を統括して実行するクラス。
+    /// このクラスに、コマンドの処理を登録する。
+    /// コマンドは、プレイヤーのインスタンスを持ち、必要に応じてプレイヤーとデータを紐づけて処理を実行する。
+    /// </summary>
     public class LocalGameDataReceiver : GameDataReceiver, IGameDataReceiver
     {
         static LocalGameDataReceiver instance;
@@ -43,11 +48,8 @@ namespace DAT
                 return;
             }
 
-            // 宛先が全員(-1)、あるいは、自分宛てのとき、データを記録
-            if ((command.to == -1) || (command.to == MyIndex))
-            {
-                jsonString = json;
-            }
+            jsonString = json;
+            InvokeCommand();
         }
     }
 }

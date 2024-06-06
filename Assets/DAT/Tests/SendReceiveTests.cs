@@ -18,7 +18,6 @@ public class SendReceiveTests
         // ローカルの番号を指定
         var receiver = LocalGameDataReceiver.Instance as GameDataReceiver;
         var sender = LocalGameDataSender.Instance as GameDataSender;
-        receiver.SetIndex(0);
 
         // 全員にデータを送信
         var data = new GameDataTest();
@@ -53,14 +52,5 @@ public class SendReceiveTests
         Assert.That(recvData.stringData, Is.EqualTo("test2"));
         Assert.That(recvData.command, Is.EqualTo(2));
         Assert.That(recvData.to, Is.EqualTo(0));
-
-        // 違う宛先へ送信
-        data.command = 3;
-        data.byteData = 1;
-        sender.Send(1,data);
-
-        // 送られてきたデータを受信してみる
-        recvData = JsonUtility.FromJson<GameDataTest>(receiver.GetJsonString());
-        Assert.That(recvData.command, Is.Not.EqualTo(3));
     }
 }
