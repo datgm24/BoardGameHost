@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace DAT
 {
@@ -17,10 +18,13 @@ namespace DAT
         void Receive(IGameDataReceiver receiver);
 
         /// <summary>
-        /// コマンドのインスタンスを受け取る。
+        /// コマンドを指定して、処理用のクラスを登録する。
+        /// 同じコマンドにすでにクラスが登録されていたら、それらを削除して、
+        /// 新しいものを登録する。
         /// </summary>
-        /// <param name="receiveFunctions">コマンドの配列</param>
-        void SetReceiveFunctions(IReceiveFunction[] receiveFunctions);
+        /// <param name="command">対応するコマンド</param>
+        /// <param name="receiveFunction">該当コマンドを処理するメソッドを持ったインスタンス</param>
+        void SetReceiveFunction(CommandType command, IReceiveFunction receiveFunction);
 
         /// <summary>
         /// ボードを登録する。

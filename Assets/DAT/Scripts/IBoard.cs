@@ -12,12 +12,6 @@ namespace DAT
         int LocalPlayerIndex => -1;
 
         /// <summary>
-        /// デバッグ用に、ロビーから送られてくるプレイヤーリストの
-        /// 処理を無視したい場合、trueにする。
-        /// </summary>
-        bool IgnoreLobbyData => false;
-
-        /// <summary>
         /// プレイヤーデータのリスト
         /// </summary>
         List<IPlayerData> PlayerDataList { get; }

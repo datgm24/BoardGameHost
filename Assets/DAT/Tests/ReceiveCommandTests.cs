@@ -21,24 +21,21 @@ public class ReceiveCommandTests
         // コマンド実行の生成
         var commandInvoker = new CommandInvoker();
         commandInvoker.SetBoard(board);
-        var commands = new IReceiveFunction[]
-        {
-            new GameDataTestPlayersFromLobby(),
-            new GameDataTestPlayers(),
-            new GameDataTestStartPlay(),
-            new GameDataTest(),
-        };
-        commandInvoker.SetReceiveFunctions(commands);
+        commandInvoker.SetReceiveFunction(CommandType.PlayersFromLobby, new RecvFuncTestPlayersFromLobby());
+        commandInvoker.SetReceiveFunction(CommandType.Players, new RecvFuncTestPlayers());
+        commandInvoker.SetReceiveFunction(CommandType.StartPlay, new RecvFuncTestStartPlay());
+        commandInvoker.SetReceiveFunction(CommandType.Test, new RecvFuncTest());
         receiver.Register(commandInvoker);
 
         // ロビーから、プレイヤーデータを送信する。
-        var playersFromLobby = new GameDataTestPlayersFromLobby();
+        var playersFromLobby = new GameDataPlayers();
         playersFromLobby.names = new string[]
         {
             "ホストプレイヤー0",
             "プレイヤー1",
             "プレイヤー2",
         };
+        playersFromLobby.nameIndex = 0;
         sender.Send(0, playersFromLobby);
 
         // プレイヤーが登録されたことを確認

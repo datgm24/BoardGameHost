@@ -1,6 +1,9 @@
+using GluonGui.Dialog;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace DAT
 {
@@ -11,7 +14,7 @@ namespace DAT
     public class CommandInvoker : ICommandInvoker
     {
         IBoard boardInstance;
-        IReceiveFunction []functions;
+        Dictionary<CommandType, IReceiveFunction> functions = new();
 
         public void Receive(IGameDataReceiver receiver)
         {
@@ -21,13 +24,11 @@ namespace DAT
                 return;
             }
 
-            for (int i = 0; i < functions.Length; i++)
+            if (Enum.TryParse($"{command.command}", false, out CommandType comm))
             {
-                if ((functions[i] != null)
-                    && functions[i].TryProcedure(command, receiver, boardInstance))
+                if (functions.ContainsKey(comm))
                 {
-                    // 実行できたらここで終了
-                    return;
+                    functions[comm]?.Process(receiver, boardInstance);
                 }
             }
         }
@@ -37,9 +38,9 @@ namespace DAT
             boardInstance = board;
         }
 
-        public void SetReceiveFunctions(IReceiveFunction[] receiveFunctions)
+        public void SetReceiveFunction(CommandType command, IReceiveFunction receiveFunction)
         {
-            functions = receiveFunctions;
+            functions[command] = receiveFunction;
         }
     }
 }
