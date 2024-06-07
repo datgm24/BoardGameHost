@@ -11,7 +11,15 @@ namespace DAT
     {
         public void Process(IGameDataReceiver receiver, IBoard board)
         {
-            Debug.Log($"RecvFuncTestStartPlay 未実装");
+            GameDataStartPlay data = JsonUtility.FromJson<GameDataStartPlay>(receiver.GetJsonString());
+            if (data == null )
+            {
+                return;
+            }
+
+            var testBoard = board as TestBoard;
+            testBoard.startPlayerIndex = data.startPlayerIndex;
+            testBoard.turn = data.turn;
         }
     }
 }

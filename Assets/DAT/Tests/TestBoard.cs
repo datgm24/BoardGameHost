@@ -4,6 +4,16 @@ namespace DAT
 {
     public class TestBoard : BoardBase, IBoard
     {
+        /// <summary>
+        /// 開始するプレイヤーのインデックス
+        /// </summary>
+        public int startPlayerIndex = -1;
+
+        /// <summary>
+        /// ターン数
+        /// </summary>
+        public int turn = -1;
+
         public override void EntryPlayers(string[] playerNames)
         {
             playerDataList.Clear();

@@ -15,5 +15,18 @@ namespace DAT
         /// 開始するプレイヤーのインデックス
         /// </summary>
         public int startPlayerIndex;
+
+        /// <summary>
+        /// ターン数
+        /// </summary>
+        public int turn;
+
+        public GameDataStartPlay(CommandType commandType, int sendTo, int player, int setTurn)
+        {
+            command = (byte)commandType;
+            to = (short)sendTo;
+            startPlayerIndex = player;
+            turn = setTurn;
+        }
     }
 }

@@ -76,7 +76,20 @@ public class ReceiveCommandTests
         Assert.That(board1.PlayerDataList[1].IsLocalPlayer, Is.True, "ローカルプレイヤー1");
         Assert.That(board1.PlayerDataList[2].IsLocalPlayer, Is.False, "非ローカルプレイヤー2");
 
+        // ゲーム開始の調査
+        Assert.That(board.startPlayerIndex, Is.EqualTo(-1), "ボード0startの処理前");
+        Assert.That(board.turn, Is.EqualTo(-1), "ボード0turnの処理前");
+        Assert.That(board1.startPlayerIndex, Is.EqualTo(-1), "ボード1startの処理前");
+        Assert.That(board1.turn, Is.EqualTo(-1), "ボード1turnの処理前");
 
+        receiver.Register(commandInvoker);
+        var startData = new GameDataStartPlay(CommandType.StartPlay, 0, 0, 1);
+        sender.Send(-1, startData);
+
+        Assert.That(board.startPlayerIndex, Is.EqualTo(0), "ボード0startの処理前");
+        Assert.That(board.turn, Is.EqualTo(1), "ボード0turnの処理前");
+        Assert.That(board1.startPlayerIndex, Is.EqualTo(0), "ボード1startの処理前");
+        Assert.That(board1.turn, Is.EqualTo(1), "ボード1turnの処理前");
 
     }
 
