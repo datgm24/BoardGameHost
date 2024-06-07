@@ -6,8 +6,7 @@ namespace DAT
     public enum CommandType
     {
         None = -1,
-        PlayersFromLobby,   // ロビーからホストへ
-        Players,            // ホストからプレイヤーへ
+        Players,            // ロビーからプレイヤーリストの送信
         StartPlay,          // ゲームの開始指示
         Test,               // テストデータ
     }

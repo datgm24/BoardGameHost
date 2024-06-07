@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace DAT
 {
-    public class ReceiveFunctionPlayersFromLobby : IReceiveFunction
+    public class ReceiveFunctionPlayers : IReceiveFunction
     {
         public void Process(IGameDataReceiver receiver, IBoard board)
         {
-            Debug.Log($"ReceiveFunctionPlayersFromLobby 未実装");
+            Debug.Log($"ReceiveFunctionPlayers 未実装");
         }
     }
 }

@@ -3,14 +3,21 @@ using UnityEngine;
 namespace DAT
 {
     /// <summary>
-    /// ホストから、プレイヤーへ、プレイヤーリストと、
-    /// プレイヤーのインデックスを渡すデータと処理。
+    /// ロビーから送られてくるローカルプレイヤーのインデックスと、プレイヤー名リストを処理。
     /// </summary>
     public class RecvFuncTestPlayers : IReceiveFunction
     {
         public void Process(IGameDataReceiver receiver, IBoard board)
         {
-            Debug.Log($"RecvFuncTestPlayers 未実装");
+            GameDataPlayers recv = JsonUtility.FromJson<GameDataPlayers>(receiver.GetJsonString());
+            if (recv == null)
+            {
+                // 変換失敗
+                return;
+            }
+
+            board.EntryPlayers(recv.names);
+            board.SetLocalPlayerIndex(recv.nameIndex);
         }
     }
 }

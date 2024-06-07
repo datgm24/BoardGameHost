@@ -21,7 +21,6 @@ public class ReceiveCommandTests
         // コマンド実行の生成
         var commandInvoker = new CommandInvoker();
         commandInvoker.SetBoard(board);
-        commandInvoker.SetReceiveFunction(CommandType.PlayersFromLobby, new RecvFuncTestPlayersFromLobby());
         commandInvoker.SetReceiveFunction(CommandType.Players, new RecvFuncTestPlayers());
         commandInvoker.SetReceiveFunction(CommandType.StartPlay, new RecvFuncTestStartPlay());
         commandInvoker.SetReceiveFunction(CommandType.Test, new RecvFuncTest());
@@ -55,7 +54,6 @@ public class ReceiveCommandTests
         // コマンド実行の生成
         var commandInvoker1 = new CommandInvoker();
         commandInvoker1.SetBoard(board1);
-        commandInvoker1.SetReceiveFunction(CommandType.PlayersFromLobby, new RecvFuncTestPlayersFromLobby());
         commandInvoker1.SetReceiveFunction(CommandType.Players, new RecvFuncTestPlayers());
         commandInvoker1.SetReceiveFunction(CommandType.StartPlay, new RecvFuncTestStartPlay());
         commandInvoker1.SetReceiveFunction(CommandType.Test, new RecvFuncTest());
