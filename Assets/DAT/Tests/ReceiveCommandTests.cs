@@ -47,6 +47,37 @@ public class ReceiveCommandTests
         Assert.That(board.PlayerDataList[0].IsLocalPlayer, Is.True, "ローカルプレイヤー0");
         Assert.That(board.PlayerDataList[1].IsLocalPlayer, Is.False, "非ローカルプレイヤー1");
         Assert.That(board.PlayerDataList[2].IsLocalPlayer, Is.False, "非ローカルプレイヤー2");
+
+
+        // 別のボードに、プレイヤー１をローカルプレイヤーとしてセットアップ
+        var board1 = new TestBoard();
+
+        // コマンド実行の生成
+        var commandInvoker1 = new CommandInvoker();
+        commandInvoker1.SetBoard(board1);
+        commandInvoker1.SetReceiveFunction(CommandType.PlayersFromLobby, new RecvFuncTestPlayersFromLobby());
+        commandInvoker1.SetReceiveFunction(CommandType.Players, new RecvFuncTestPlayers());
+        commandInvoker1.SetReceiveFunction(CommandType.StartPlay, new RecvFuncTestStartPlay());
+        commandInvoker1.SetReceiveFunction(CommandType.Test, new RecvFuncTest());
+        receiver.Unregister(commandInvoker);    // 一つ目のボードを登録から外す
+        receiver.Register(commandInvoker1);     // 二分目のボードへ送信
+
+        // ロビーから、プレイヤーデータを送信する。
+        playersFromLobby.nameIndex = 1;
+        sender.Send(1, playersFromLobby);
+
+        // プレイヤーが登録されたことを確認
+        Assert.That(board1.PlayerDataList.Count, Is.EqualTo(3), "3人登録");
+        Assert.That(board1.PlayerDataList[0].Name, Is.EqualTo("ホストプレイヤー0"), "Player0");
+        Assert.That(board1.PlayerDataList[1].Name, Is.EqualTo("プレイヤー1"), "Player1");
+        Assert.That(board1.PlayerDataList[2].Name, Is.EqualTo("プレイヤー2"), "Player2");
+        Assert.That(board1.LocalPlayerIndex, Is.EqualTo(1), "ローカルプレイヤー1");
+        Assert.That(board1.PlayerDataList[0].IsLocalPlayer, Is.False, "非ローカルプレイヤー0");
+        Assert.That(board1.PlayerDataList[1].IsLocalPlayer, Is.True, "ローカルプレイヤー1");
+        Assert.That(board1.PlayerDataList[2].IsLocalPlayer, Is.False, "非ローカルプレイヤー2");
+
+
+
     }
 
 }
